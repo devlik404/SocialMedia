@@ -1,0 +1,27 @@
+{
+   "name": "MyProject",
+   "version": "0.0.1",
+   "description": "Awesome project developed with TypeORM.",
+   "type": "commonjs",
+   "devDependencies": {
+      "@types/cors": "^2.8.13",
+      "@types/express": "^4.17.17",
+      "@types/node": "^16.11.10",
+      "cors": "^2.8.5",
+      "ts-node": "10.7.0",
+      "typescript": "4.5.2"
+   },
+   "dependencies": {
+      "express": "^4.18.2",
+      "nodemon": "^3.0.1",
+      "pg": "^8.4.0",
+      "reflect-metadata": "^0.1.13",
+      "typeorm": "0.3.17"
+   },
+   "scripts": {
+      "start": "nodemon src/index.ts",
+      "typeorm": "typeorm-ts-node-commonjs",
+      "migration:generate": "npx typeorm-ts-node-commonjs migration:generate src/migration/mymigration -d src/data-source.ts",
+      "migration:run": "npx typeorm-ts-node-commonjs migration:run -d src/data-source.ts"
+   }
+}

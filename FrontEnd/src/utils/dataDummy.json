@@ -1,0 +1,42 @@
+[
+    {
+        "id":1,
+        "picture":"https://fthmb.tqn.com/CRQgsiBGMF6HDUfEqCA41VH2gVo=/1500x1000/filters:fill(auto,1)/OnePiece-free1-56a013de3df78cafda9ff8fc.jpg",
+        "Fullname":"malik Fajar",
+        "Nickname":"@malikdev",
+        "postdate":"4h",
+        "articel":" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi harum neque autem. ",
+        "like":20,
+        "replice":250
+    },
+    {
+        "id":2,
+        "picture":"https://fthmb.tqn.com/CRQgsiBGMF6HDUfEqCA41VH2gVo=/1500x1000/filters:fill(auto,1)/OnePiece-free1-56a013de3df78cafda9ff8fc.jpg",
+        "Fullname":"malik Fajar",
+        "Nickname":"@malikdev",
+        "postdate":"2h",
+        "articel":" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi harum neque autem. ",
+        "like":20,
+        "replice":200
+    },
+    {
+        "id":3,
+        "picture":"https://fthmb.tqn.com/CRQgsiBGMF6HDUfEqCA41VH2gVo=/1500x1000/filters:fill(auto,1)/OnePiece-free1-56a013de3df78cafda9ff8fc.jpg",
+        "Fullname":"malik Fajar",
+        "Nickname":"@malikdev",
+        "postdate":"2h",
+        "articel":" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi harum neque autem. ",
+        "like":20,
+        "replice":200
+    },
+    {
+        "id":4,
+        "picture":"https://fthmb.tqn.com/CRQgsiBGMF6HDUfEqCA41VH2gVo=/1500x1000/filters:fill(auto,1)/OnePiece-free1-56a013de3df78cafda9ff8fc.jpg",
+        "Fullname":"malik Fajar",
+        "Nickname":"@malikdev",
+        "postdate":"2h",
+        "articel":" Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi harum neque autem. ",
+        "like":20,
+        "replice":200
+    }
+]
