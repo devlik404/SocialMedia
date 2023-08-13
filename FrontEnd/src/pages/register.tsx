@@ -40,7 +40,7 @@ console.log("contentpost data",Validate)
           console.log("error submit data",error)
       }
   }
-
+ 
 
 return(
 
