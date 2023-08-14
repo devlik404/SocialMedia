@@ -27,9 +27,9 @@ const navigate=useNavigate()
     }
   }
 useEffect(()=>{
-  if(localStorage.token){
+
     authCheck()
-  }
+  
 },[])
 
   return (
