@@ -1,97 +1,85 @@
-import { Box, Button, FormControl, FormLabel, Input, Container, FormHelperText, InputGroup, InputRightElement, Heading} from "@chakra-ui/react"
-import React, { ChangeEvent, FormEvent, useState } from "react";
-import { ApiData } from "../hooks/api";
-import { IValidation } from "../interface/interfaceData";
-import { useNavigate } from "react-router-dom";
-
+import { Box, Button, FormControl, FormLabel, Input, FormHelperText, InputGroup, InputRightElement, Heading, Divider} from "@chakra-ui/react"
+import React from "react";
+import { BiHide, BiShowAlt } from "react-icons/bi";
+import { useRegister } from "../features/fiture/hooks/useRegister";
+import { Link } from "react-router-dom";
 
 
 const RegisterForm = () =>{
   const [show, setShow] = React.useState(false)
   const handleClick = () => setShow(!show)
 
-  //validation register
-  const [Validate,setValidate] = useState<IValidation>({
-    fullname:"",
-    nickname:"",
-    email:"",
-    password:""
-})
-// const toast = useToast();
-console.log("contentpost data",Validate)
-
-    const  changeHandlerValidate = (event:ChangeEvent<HTMLInputElement>)=>{
-      const { name, value } = event.target;
-      setValidate({
-            ...Validate,
-            [name]:value
-        })
-        console.log(setValidate,"data chengehandler spreds")
-    }
-    const navigate = useNavigate()
-    const sumbitHandelValidate = async (e:FormEvent) =>{
-      e.preventDefault()
-      try {
-          const response = await ApiData.post("/threads/register",Validate)
-          navigate("/")
-          console.log("response",response.data)
-      
-      } catch (error) {
-          console.log("error submit data",error)
-      }
-  }
- 
+const {submitHandelValidate,changeHandlerValidate} = useRegister()
 
 return(
 
- <Container w='100vh' height='100vh'  display="flex" justifyContent={"center"} alignItems='center'>
-  <Box boxShadow='base' p='6' rounded='md' bg='white' >
-    <form onSubmit={sumbitHandelValidate}>
+ <Box   height='100vh'  display="flex" justifyContent={"center"} alignItems='center' >
+  <Box boxShadow='base' p='6' rounded='md'   w='50%'>
+    <form onSubmit={submitHandelValidate}>
+    
+<Box gap='4'>
 <Heading color="greenyellow">OCTAGRAM</Heading>
-<Heading  size='lg'>
+</Box>
+<Box m='4'>
+<Heading  size='md'>
     Create Account Octagram
   </Heading>
+</Box>
+<Box m='4'>  
   <FormControl isRequired>
   <FormLabel>Full Name</FormLabel>
   <Input placeholder='Fullname' onChange={changeHandlerValidate} name="fullname"/>
 </FormControl>
-
+</Box>
+<Box m='4'>
 <FormControl isRequired>
   <FormLabel>Nick Name</FormLabel>
   <Input placeholder='Nick name' onChange={changeHandlerValidate} name="nickname"/>
 </FormControl>
-
+</Box>
+<Box m='4'> 
 <FormControl>
   <FormLabel>Email address</FormLabel>
   <Input type='email' onChange={changeHandlerValidate} name="email"/>
   <FormHelperText>We'll never share your email.</FormHelperText>
 </FormControl>
-
-<InputGroup size='md'>
-      <Input
-        pr='4.5rem'
-        type={show ? 'text' : 'password'}
-        placeholder='Enter password'
-        onChange={changeHandlerValidate} 
-        name="password"
-      />
-      <InputRightElement width='4.5rem'>
-        <Button h='1.75rem' size='sm' onClick={handleClick}>
-          {show ? 'Hide' : 'Show'}
-        </Button>
-      </InputRightElement>
-    </InputGroup>
-    
+</Box>
+<Box m='4'>
+  <InputGroup size='md' display='flex' alignItems='center'>
+  <FormLabel>Password</FormLabel>
+        <Input
+          pr='4.5rem'
+          type={show ? 'text' : 'password'}
+          placeholder='Enter password'
+          onChange={changeHandlerValidate} 
+          name="password"
+        />
+        <InputRightElement width='5rem' >
+          <Button h='1.8rem' size='md'  colorScheme='green' variant='outline' onClick={handleClick} >
+            {show ? <BiHide/> : <BiShowAlt/>}
+          </Button>
+        </InputRightElement>
+  </InputGroup>
+</Box>
 <Button
-mt={4}
-colorScheme='green'
+ colorScheme='teal' variant='outline'
 type='submit'
+m='4'
 >
 Register
 </Button>
     </form>
+<Divider m='2'></Divider>
+<Box float={'right'}>
+<Heading size='xs'>Sudah Memiliki Akun?</Heading>
+<Button colorScheme='teal' variant='link' >
+  <Link to="/login">
+Login
+  </Link>
+</Button>
+</Box>
   </Box>
- </Container>
+ </Box>
 )
 }
 export default RegisterForm;

@@ -1,8 +1,8 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box,Flex } from "@chakra-ui/react";
 import Home from "./home";
 import Navbar from "./layout"
 import Cards from "./cardSprofile"
-import ContentPost from "../features/fiture/contentPost";
+// import ContentPost from "../features/fiture/contentPost";
 
 
 const ThreeColumnLayout = () => {
@@ -10,13 +10,14 @@ const ThreeColumnLayout = () => {
     return (
       
 
+
       <Flex>
         <Box flex='0.4' flexDirection="column" >
           <Navbar />
         </Box>
      
         <Box flex='1'>
-            <ContentPost/>
+            {/* <ContentPost/> */}
         <Home />
         </Box>
   
@@ -26,6 +27,7 @@ const ThreeColumnLayout = () => {
           
           
       </Flex>
+
      
     );
   };

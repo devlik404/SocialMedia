@@ -1,7 +1,7 @@
 import {Box, Button,Avatar,Image,Text,Flex,Divider, Card, CardFooter, CardBody, CardHeader, Heading, IconButton} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import {BsHeartFill,BsFillChatSquareDotsFill, BsThreeDotsVertical} from "react-icons/bs";
-import { Link } from 'react-router-dom'; // Impor Link
+import { Link } from 'react-router-dom'; 
 import { ApiData } from "../../hooks/api";
 import { BiShare } from "react-icons/bi";
 import { ThreadsCards } from "../../interface/interfaceData";
@@ -15,7 +15,13 @@ export  function Threads (){
 
  const fetchData = async ()=>{
   try {
-    const response = await ApiData.get("/threads")
+    const response = await ApiData.get("/threads",{
+      headers:{
+        Authorization:`
+        Bearer ${localStorage.token}`
+
+      }
+    })
     setThreads(response.data)
   } catch (error) {
     console.info(error)
@@ -26,7 +32,7 @@ export  function Threads (){
  },[])
 
 
-//  console.log('ini data' , threads)
+ console.log('ini data' , threads)
 
   return (
     <>
@@ -34,14 +40,16 @@ export  function Threads (){
      
       return (
         <>
-        <Card zIndex="-1">
+        <Card>
         <CardHeader>
           <Flex>
             <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
               <Avatar name='Segun Adebayo' src={item.users.profile_articel}/>
       
               <Box>
-                <Heading size='sm'><Link to={`/detail/${item.id}`}>{item.users.fullname}</Link></Heading>
+                <Heading>
+              <Link to={`/detail/${item.id}`}>{item.users.fullname}</Link>
+                </Heading>
                 <Text>{item.users.nickname}|{item.postDate}</Text>
               </Box>
             </Flex>

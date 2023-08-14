@@ -9,7 +9,7 @@ import {FiLogOut} from "react-icons/fi"
 const Layout = () => {
     return (
       <>
-        <Box  position='fixed' top='0'>
+        <Box  position='fixed'>
           <Box  h="100vh" m="0" display="flex" flexDirection="column" gap="5">
               <Text fontSize='4xl' fontWeight="bold" color="greenyellow">OctaGram</Text>
               <Box fontSize='lg' display="flex" flexDirection="row" alignItems="center" gap="2"><BiHomeSmile/><Link to="/">Home</Link></Box>

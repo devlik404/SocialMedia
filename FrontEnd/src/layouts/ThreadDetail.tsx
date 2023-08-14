@@ -4,8 +4,8 @@ import Navbar from "./layout"
 import { BsFillChatSquareDotsFill,BsHeartFill } from 'react-icons/bs';
 import { ApiData } from '../hooks/api';
 import { useEffect, useState } from 'react';
-import { ThreadsCards } from '../features/threads/Thread';
 import { useParams } from 'react-router-dom';
+import { ThreadsCards } from '../interface/interfaceData';
 
 
 

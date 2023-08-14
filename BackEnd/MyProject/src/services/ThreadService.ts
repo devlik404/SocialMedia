@@ -75,7 +75,7 @@ class ThreadService {
             return res.status(200).json(updateThreads);
             
         } catch (error) {
-            return res.status(500).json("gagal coy update");
+            return res.status(500).json("gagal  update");
         }
      }
 }

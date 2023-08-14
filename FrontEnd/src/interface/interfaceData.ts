@@ -25,4 +25,8 @@ export interface Users{
     password: string,
   }
   
+  export interface ILoginFrom{
+    email: string,
+    password: string,
+  }
   
