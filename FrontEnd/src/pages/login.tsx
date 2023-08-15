@@ -3,6 +3,8 @@ import React from "react";
 import { Link} from "react-router-dom";
 import { useLogin } from "../features/fiture/hooks/useLogin";
 import { BiHide, BiShowAlt } from "react-icons/bi";
+// import { useSelector } from "react-redux";
+// import { RootState } from "../stores/types/rootState";
 
 
 
@@ -12,11 +14,13 @@ const LoginForm = () =>{
   const handleClick = () => setShow(!show)
 
   const {submitHandelValidate,changeHandlerValidate} = useLogin()
+  // const auth= useSelector((state:RootState)=>state.auth)
 
 return(
 
  <Box   height='100vh'  display="flex" justifyContent={"center"} alignItems='center' >
   <Box boxShadow='base' p='6' rounded='md'   w='50%'>
+
     <form onSubmit={submitHandelValidate}>   
 <Box gap='4'>
 <Heading color="greenyellow">OCTAGRAM</Heading>
@@ -50,6 +54,7 @@ return(
         </InputRightElement>
   </InputGroup>
 </Box>
+
 <Button m='4' colorScheme='teal' variant='outline' type='submit'>
 Login
 </Button>

@@ -10,6 +10,7 @@ import { ThreadsCards } from "../../interface/interfaceData";
 
 
 
+
 export  function Threads (){
  const [threads,setThreads] = useState<ThreadsCards[]>([])
 
@@ -31,8 +32,6 @@ export  function Threads (){
   fetchData()
  },[])
 
-
- console.log('ini data' , threads)
 
   return (
     <>

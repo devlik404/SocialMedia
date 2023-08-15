@@ -1,10 +1,9 @@
 export interface Users{
     id:number,
-    picture : string,
-    fullname :string,
-    nickname : string,
+    picture: string,
+    fullname:string,
+    nickname: string,
     profile_articel: string,
-    password :string,
     email :string
   }
   

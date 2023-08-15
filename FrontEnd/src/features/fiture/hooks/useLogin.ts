@@ -1,12 +1,12 @@
 import { useState, ChangeEvent, FormEvent} from "react";
-import { ApiData, setAuthToken } from "../../../hooks/api";
+import { ApiData } from "../../../hooks/api";
 import { useNavigate } from "react-router-dom";
 import { ILoginFrom } from "../../../interface/interfaceData";
-
-
+import { AUTH_LOGIN } from "../../../stores/rootReducer";
+import { useDispatch } from "react-redux";
 
 export function useLogin (){
-   
+   const dispatch = useDispatch()
   //validation login
   const [Validate,setValidate] = useState<ILoginFrom>({
     email:"",
@@ -26,9 +26,10 @@ export function useLogin (){
     const submitHandelValidate = async (e:FormEvent) =>{
       e.preventDefault()
       try {
-         const threads = await ApiData.post("/login",Validate)
-        localStorage.setItem("token",threads.data.token)
-        setAuthToken(localStorage.token)
+         const response = await ApiData.post("/login",Validate)
+         dispatch(AUTH_LOGIN(response.data))
+        // localStorage.setItem("token",response.data.token)
+        // setAuthToken(localStorage.token)
           navigate("/")
       
       } catch (error) {

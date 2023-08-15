@@ -1,12 +1,28 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import {Avatar, Badge, Box,Button,Flex,Text} from "@chakra-ui/react";
 import {BiHomeSmile} from "react-icons/bi"
 import { TbMoodSearch} from "react-icons/tb"
 import { RiHeartAddLine} from "react-icons/ri"
 import {CgProfile} from "react-icons/cg"
 import {FiLogOut} from "react-icons/fi"
+import { useDispatch } from "react-redux";
+import { AUTH_LOGOUT } from "../stores/rootReducer";
 
 const Layout = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const handleLogout = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault()
+    dispatch(AUTH_LOGOUT()) 
+    navigate("/login")
+           // Auto-refresh the page 
+           setTimeout(() => {
+            window.location.reload();
+        }); 
+};
+
+
     return (
       <>
         <Box  position='fixed'>
@@ -25,7 +41,7 @@ const Layout = () => {
           <Text fontWeight='bold'>
             Malik fajar
             <Badge ml='1' gap="2">
-              <Button  variant='link'><FiLogOut/></Button>
+              <Button  variant='link' onClick={handleLogout}><FiLogOut/></Button>
             </Badge>
           </Text>
           <Text fontSize='sm'>FullStack Dev</Text>
