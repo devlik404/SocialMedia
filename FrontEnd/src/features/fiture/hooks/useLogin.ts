@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, FormEvent} from "react";
-import { ApiData } from "../../../hooks/api";
+import { ApiData} from "../../../hooks/api";
 import { useNavigate } from "react-router-dom";
 import { ILoginFrom } from "../../../interface/interfaceData";
 import { AUTH_LOGIN } from "../../../stores/rootReducer";

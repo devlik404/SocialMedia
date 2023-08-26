@@ -10,11 +10,12 @@ export interface Users{
   export interface ThreadsCards{
     id:number,
     users:Users,
-    picture : string,
-    postDate :string,
+    picture: string,
+    postDate :Date,
     articel: string,
-    like :number,
-    replice :number
+    isLike :boolean,
+    likes_count:number,
+    replies :number,
   }
 
   export interface IValidation{
@@ -29,3 +30,19 @@ export interface Users{
     password: string,
   }
   
+
+export  interface IthreadPost {
+    article?:string,
+    picture?: any | Blob | MediaSource
+}
+
+export  interface IReplies {
+  thread_id:Number,
+  articel:string
+}
+export  interface IReply {
+  thread_id:Number,
+  articel:string,
+  users:Users,
+  
+}

@@ -16,18 +16,10 @@ export class Replies {
     @Column({type:"timestamp",default : () => "CURRENT_TIMESTAMP"})
     postDate: Date;
 
-    @ManyToOne(()=> Users,(users) => users.replies,{
-        onDelete:"CASCADE",
-        onUpdate:"CASCADE"
-        
-    })
+    @ManyToOne(()=> Users,(users) => users.replies)
     users:Users;
 
-    @ManyToOne(()=> Threads,(threads) => threads.replies,{
-        onDelete:"CASCADE",
-        onUpdate:"CASCADE"
-        
-    })
+    @ManyToOne(()=> Threads,(threads) => threads.replies)
     threads:Threads;
 
 

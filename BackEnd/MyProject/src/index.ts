@@ -4,7 +4,7 @@ import {Request,Response} from "express";
 import { AppDataSource } from "./data-source"
 import router from "./route";
 import * as cors from "cors";
-
+import "dotenv/config"
 const app = express();
 app.use(cors())
 AppDataSource.initialize().then(async () => {

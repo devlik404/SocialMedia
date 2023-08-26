@@ -1,27 +1,18 @@
-import { Outlet, Link, useNavigate } from "react-router-dom";
-import {Avatar, Badge, Box,Button,Flex,Text} from "@chakra-ui/react";
+import { Outlet, Link} from "react-router-dom";
+import {Avatar, Badge, Box,Button,Flex,Icon,Text, useColorMode} from "@chakra-ui/react";
 import {BiHomeSmile} from "react-icons/bi"
 import { TbMoodSearch} from "react-icons/tb"
 import { RiHeartAddLine} from "react-icons/ri"
 import {CgProfile} from "react-icons/cg"
 import {FiLogOut} from "react-icons/fi"
-import { useDispatch } from "react-redux";
-import { AUTH_LOGOUT } from "../stores/rootReducer";
+import {BsFillLightbulbFill} from "react-icons/bs"
+
+import { Logout } from "../features/fiture/hooks/useLogout";
+
 
 const Layout = () => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-
-  const handleLogout = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault()
-    dispatch(AUTH_LOGOUT()) 
-    navigate("/login")
-           // Auto-refresh the page 
-           setTimeout(() => {
-            window.location.reload();
-        }); 
-};
-
+  const { colorMode, toggleColorMode } = useColorMode();
+  const {handleLogout} = Logout()
 
     return (
       <>
@@ -32,16 +23,23 @@ const Layout = () => {
               <Box fontSize='lg'  display="flex" flexDirection="row" alignItems="center" gap="2"><TbMoodSearch/><Link to="/">Search</Link></Box>
               <Box fontSize='lg'  display="flex" flexDirection="row" alignItems="center" gap="2"><RiHeartAddLine/><Link to="/">Folowers</Link></Box>
               <Box fontSize='lg' display="flex" flexDirection="row" alignItems="center" gap="2"><CgProfile/><Link to="/">Profile</Link></Box>
-          <Button colorScheme='teal'   variant='outline'color="greenyellow">Create Post</Button>
+          <Button onClick={toggleColorMode} w={"50%"}  variant='outline'>
+                {colorMode === 'light' ?   <Icon as={BsFillLightbulbFill} color='dark' />  :<Icon as={BsFillLightbulbFill}  color='yellow' /> } Mode
+            </Button>
+          <Button colorScheme='teal'   variant='outline' color="greenyellow">Create Post</Button>
           </Box>
         <Box>
+   
+                
+            
         <Flex mt="-14">
         <Avatar src='https://bit.ly/sage-adebayo' />
         <Box ml='3'>
           <Text fontWeight='bold'>
             Malik fajar
             <Badge ml='1' gap="2">
-              <Button  variant='link' onClick={handleLogout}><FiLogOut/></Button>
+              <Button  variant='link' onClick={handleLogout}><FiLogOut/>
+              </Button>
             </Badge>
           </Text>
           <Text fontSize='sm'>FullStack Dev</Text>

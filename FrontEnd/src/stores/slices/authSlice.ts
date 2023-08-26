@@ -21,6 +21,7 @@ reducers:{
       setAuthToken(userPayload.token)
 
         localStorage.setItem("token",userPayload.token)
+        
          const user: Users = {
              id: userPayload.user.id,
              fullname: userPayload.user.fullname,
@@ -55,6 +56,7 @@ reducers:{
     },
     AUTH_LOGOUT:()=>{
         localStorage.removeItem("token")
+    return initalAuthState;
     },
     }
 })

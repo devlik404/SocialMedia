@@ -48,6 +48,7 @@ function RouteLogin(){
     return <Outlet/>
   }
 }
+
 function RouteNotLogin(){
   if(auth.fullname){
     return <Navigate to={"/"}/>
