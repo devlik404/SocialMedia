@@ -10,13 +10,19 @@ export class Follows {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(()=> Users,(users) => users.replies,{
+    @ManyToOne(()=> Users,(users) => users.follower,{
         onDelete:"CASCADE",
         onUpdate:"CASCADE"
         
     })
-  users:Users;
+    follower:Users;
 
+    @ManyToOne(()=> Users,(users) => users.followed,{
+      onDelete:"CASCADE",
+      onUpdate:"CASCADE"
+      
+  })
+  followed:Users;
 
 
 

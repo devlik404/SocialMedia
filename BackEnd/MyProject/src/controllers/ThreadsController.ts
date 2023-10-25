@@ -28,8 +28,19 @@ class ThreadsController {
   delete(req: Request, res: Response) {
     ThreadService.delete(req, res);
   }
-  update(req: Request, res: Response) {
-    ThreadService.update(req, res);
+  async update(req: Request, res: Response) {
+    try {
+      const loginSession = res.locals.loginSession;
+    
+      const response = await ThreadService.update(req.body, loginSession,res);
+
+      return res.status(200).json(response);
+    } catch (error) {
+      return res.status(500).json({ error: "wrong something server hahah:" });
+    }
   }
+
+
+
 }
 export default new ThreadsController();

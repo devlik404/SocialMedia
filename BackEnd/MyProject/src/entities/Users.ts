@@ -44,12 +44,18 @@ export class Users {
     })
     replies:Replies[];
 
-    @OneToMany(()=> Follows,(follows) => follows.users,{
+    @OneToMany(()=> Follows,(follows) => follows.follower,{
         onDelete:"CASCADE",
         onUpdate:"CASCADE"
         
     })
-    follows:Follows[];
+    follower:Follows[];
+    @OneToMany(()=> Follows,(follows) => follows.followed,{
+        onDelete:"CASCADE",
+        onUpdate:"CASCADE"
+        
+    })
+    followed:Follows[];
 
     @OneToMany(()=> Likes,(likes) => likes.users,{
         onDelete:"CASCADE",

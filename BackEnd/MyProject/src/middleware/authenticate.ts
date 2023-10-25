@@ -17,6 +17,7 @@ const authenticate = (
             error:"Unauthorized",
         });
     }
+    
     const token = authorizationHeader.split(" ")[1];
     try {
         const loginSession = jwt.verify(token,secretKey);

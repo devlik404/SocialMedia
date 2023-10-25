@@ -117,7 +117,7 @@ export function Threads() {
                       item.isLike ? (
                         <BsHeartFill color="red" />
                       ) : (
-                        <BsHeartFill color="black" />
+                        <BsHeartFill color="white" />
                       )
                     }
                     onClick={() => handleLikes(item.id, item.isLike)}

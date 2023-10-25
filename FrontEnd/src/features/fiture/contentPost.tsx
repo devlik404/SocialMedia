@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Container,Flex,  Input, InputGroup, WrapItem } from "@chakra-ui/react"
+import { Avatar, Box, Button, Flex,  Input, InputGroup, WrapItem } from "@chakra-ui/react"
 
 import {RiImageAddFill} from "react-icons/ri"
 import { usePost } from "./hooks/usePost"
@@ -12,15 +12,17 @@ const ContenPost = ()=>{
   const { submitHandler ,handleArticelChange, handlePictureChange,handleIconButtonClick,content} = usePost()
    
     return(
-        <Container position="sticky" top="0" p="2" boxShadow="md" zIndex="1">
+        <Box w={"100%"} position="sticky" top="0" p="2" boxShadow="md" zIndex="1">
+          <Box >
+
           <form onSubmit={submitHandler}>
-            <Flex gap="10" mt="2" flex="1" >
-              <Box>
+            <Flex gap="10" mt="2" >
+              <Box flex={"0.1"} ml={"5"}>
               <WrapItem>
                   <Avatar size='sm' name='Kent Dodds' src='https://bit.ly/kent-c-dodds' />{' '}
               </WrapItem>
               </Box>
-              <Box>
+              <Box flex={"1"}>
               <Input
               variant='flushed'
               type="text"
@@ -31,7 +33,7 @@ const ContenPost = ()=>{
               
               />
               </Box>
-              <Box>
+              <Box flex={"0.4"}>
                   <InputGroup size='sm' gap="2">
               <Box>
                   <label htmlFor="image-upload-input" >
@@ -46,7 +48,8 @@ const ContenPost = ()=>{
               </Box>
           </Flex>
           </form>
-        </Container>
+          </Box>
+        </Box>
     )
 }
 

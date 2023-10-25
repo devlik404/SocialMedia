@@ -21,7 +21,7 @@ const ThreeColumnLayout = () => {
         <Home />
         </Box>
   
-        <Box  flex='0.5' h='100vh' >
+        <Box  flex='0.4' h='100vh' >
         <Cards/>
         </Box>
           

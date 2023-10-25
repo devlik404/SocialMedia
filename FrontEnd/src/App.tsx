@@ -10,6 +10,8 @@ import { useDispatch } from "react-redux";
 import { AUTH_CHECK, AUTH_ERROR } from "./stores/rootReducer";
 import { useSelector } from "react-redux";
 import { RootState } from "./stores/types/rootState";
+import { FollowersPage } from "./layouts/followers";
+import { FormUpdate } from "./pages/formUpdate";
 
 export default function App() {
  const [isLoading,setIsoLoading]= useState<boolean>(true)
@@ -66,6 +68,9 @@ function RouteNotLogin(){
         <Route path="/" element={<RouteLogin/>}>
           <Route path="/" element={<Index />}></Route>
           <Route path="/detail/:id" element={<ThreadDetail/>}/>
+          <Route path="/followers" element={<FollowersPage />}/>
+          <Route path="/profile/update/:id" element={<FormUpdate />}/>
+
         </Route>
         <Route path="/" element={<RouteNotLogin/>}>
             <Route path="/register" element={<RegisterForm/>}/>

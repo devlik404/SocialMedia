@@ -19,7 +19,6 @@ reducers:{
     AUTH_LOGIN:(_,action)=>{
       const userPayload = action.payload
       setAuthToken(userPayload.token)
-
         localStorage.setItem("token",userPayload.token)
         
          const user: Users = {

@@ -1,13 +1,16 @@
 import { useState, FormEvent, ChangeEvent, useEffect } from "react";
 
 import { ApiData } from "../../../hooks/api";
-import { IReplies, IReply, ThreadsCards} from "../../../interface/interfaceData";
+import { IReplies, IReply} from "../../../interface/interfaceData";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../stores/types/rootState";
+import { SET_THREADS } from "../../../stores/rootReducer";
 
 export function useReplies() {
   const { id } = useParams();
-
-  const [Threads, setThreads] = useState<ThreadsCards[]>([]);
+  const dispatch = useDispatch();
+  const threads = useSelector((state:RootState)=>state.thread.threads);
   const [replies, setReplies] = useState<IReply[]>([]);
 
 
@@ -19,8 +22,7 @@ export function useReplies() {
   async function postReplies(event: FormEvent<HTMLFormElement>) {
     try {
       event.preventDefault()
-      const response =await ApiData.post("/reply",form);
-      console.log("berhasil menambahkan reply:",response.data)
+     await ApiData.post("/reply",form);
       getReplies();
     } catch (error) {
       console.log("gagal menambahkan reply",error)
@@ -48,7 +50,11 @@ async function getReplies() {
   const fetchData = async () => {
     try {
       const response = await ApiData.get("/threads");
-      setThreads(response.data);
+      dispatch(
+        SET_THREADS({
+          thread: response.data,
+        })
+      );
     } catch (error) {
       console.info(error);
     }
@@ -60,12 +66,12 @@ async function getReplies() {
     getReplies();
   }, []);
 
-  const element = Threads.find((el) => el.id === Number(id));
+  const element = threads.find((el) => el.id === Number(id));
 
 
 
   return {
-    Threads,
+    threads,
     replies,
     form,
     handleChange,

@@ -2,12 +2,15 @@ import { Repository } from "typeorm";
 import { Threads } from "../entities/Threads";
 import { AppDataSource } from "../data-source";
 import { Request, Response } from "express";
+import { Users } from "../entities/Users";
 const cloudinary = require("cloudinary").v2;
 require("dotenv").config();
 
 class ThreadService {
   private readonly threadRepository: Repository<Threads> =
     AppDataSource.getRepository(Threads);
+    private readonly UsersRepository: Repository<Users> =
+    AppDataSource.getRepository(Users);
 
   async find(reqQuery: any, loginSession?: any): Promise<any> {
     try {
@@ -86,7 +89,7 @@ class ThreadService {
         articel: data.articel,
         users: data.users,
       });
-      const createThreads = this.threadRepository.save(dataCloud);
+     await this.threadRepository.save(dataCloud);
       return res.status(200).json("data berhasil di tambahkan");
     } catch (error) {
       return res.status(500).json(error);
@@ -102,26 +105,61 @@ class ThreadService {
     }
   }
 
-  async update(req: Request, res: Response) {
+  async update(reqBody: any, loginSession: any,res:Response): Promise<any> {
+   
     try {
-      const id = parseInt(req.params.id);
-      const threads = await this.threadRepository.findOne({
-        where: {
-          id: id,
-        },
+      const id = loginSession.user.id;
+      const user = await this.UsersRepository.findOne({
+        where:{
+          id:id
+        }
       });
-      const data = req.body;
-      if (data.content != "") {
-        threads.picture = data.picture;
+
+      if (!user) {
+        return console.log("user not found")
       }
 
-      if (data.content != "") {
-        threads.articel = data.articel;
+      const data = reqBody;
+    
+      const filename = res.locals.filename;
+     
+
+      const cloudinaryConfig = cloudinary.config({
+        cloud_name: process.env.CLOUD_NAME,
+        api_key: process.env.API_KEY,
+        api_secret: process.env.API_SECRET,
+      });
+     
+      const cloudinaryResponse = await cloudinary.uploader.upload(
+        "./uploads/" + filename
+      );
+      console.log("cloudinaryResponse",cloudinaryResponse)
+
+      
+      if (data.fullname !== undefined && data.fullname !== "") {
+        user.fullname = data.fullname;
       }
-      const updateThreads = this.threadRepository.save(threads);
-      return res.status(200).json(updateThreads);
+
+      if (data.nickname !== undefined && data.nickname !== "") {
+        user.nickname = data.nickname;
+      }
+
+      if (data.picture !== null && data.picture !== "") {
+        user.picture = cloudinaryResponse.secure_url;
+      }
+      if (data.profile_articel !== null && data.profile_articel !== "") {
+        user.profile_articel = cloudinaryResponse.secure_url;
+      }
+      
+     
+
+      const updatedUser = await this.UsersRepository.save(user);
+      return {
+        message: "Update Sucess",
+        UpdatedUser: updatedUser,
+      };
     } catch (error) {
-      return res.status(500).json("gagal  update");
+      throw new Error("An error create the server ");
     }
   }
 }

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { IFollowers } from "./IFollows"
+
 export interface Users{
     id:number,
     picture: string,
@@ -5,6 +8,12 @@ export interface Users{
     nickname: string,
     profile_articel: string,
     email :string
+  }
+  
+  export interface UsersCard{
+    fullname:string,
+    nickname: string,
+    profile_articel:  any | Blob | MediaSource,
   }
   
   export interface ThreadsCards{
@@ -16,6 +25,7 @@ export interface Users{
     isLike :boolean,
     likes_count:number,
     replies :number,
+    follows:IFollowers
   }
 
   export interface IValidation{
@@ -29,6 +39,8 @@ export interface Users{
     email: string,
     password: string,
   }
+
+  
   
 
 export  interface IthreadPost {
@@ -37,11 +49,11 @@ export  interface IthreadPost {
 }
 
 export  interface IReplies {
-  thread_id:Number,
+  thread_id:number,
   articel:string
 }
 export  interface IReply {
-  thread_id:Number,
+  thread_id:number,
   articel:string,
   users:Users,
   

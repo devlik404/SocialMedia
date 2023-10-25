@@ -1,123 +1,162 @@
-import { Card, CardHeader, CardBody, CardFooter, Heading, Box,Button,Text ,Image, Container, Avatar, List, ListItem, Flex, Divider} from '@chakra-ui/react'
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Heading,
+  Box,
+  Button,
+  Text,
+  Container,
+  Avatar,
+  List,
+  ListItem,
+  Flex,
+  Divider,
+  Image,
+} from "@chakra-ui/react";
 
-import {BiLike,BiChat,BiShare} from "react-icons/bi"
-import{RiEditFill} from "react-icons/ri"
-import {SlSocialGithub} from "react-icons/sl"
-import{TiSocialInstagram,TiSocialLinkedin,TiSocialTwitter} from "react-icons/ti"
+import { RiEditFill } from "react-icons/ri";
+import { SlSocialGithub } from "react-icons/sl";
+import {
+  TiSocialInstagram,
+  TiSocialLinkedin,
+  TiSocialTwitter,
+} from "react-icons/ti";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../stores/types/rootState";
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { Follows } from "../features/follows/follower";
+import { ApiData } from "../hooks/api";
+import { GET_FOLLOWS, SET_FOLLOWS_STATE } from "../stores/rootReducer";
+
 const Cards = () => {
-    return(
-      <Container>
-        <Box position='fixed'>
+  const auth = useSelector((state: RootState) => state.auth);
 
-<Box p="1"    >
-<Card>
-  <CardHeader>
-    <Text fontSize="2xl" mb="2">Profile</Text>
-    <Box bg="greenyellow" w="full" h="20" borderRadius="2xl"></Box>
-    <Image 
-    borderRadius="50%" 
-    w="25%" 
-    mt="-12"
-    ml="3"
-    src='https://th.bing.com/th/id/OIP.6KZiUNTqbsDFQsAxPxajLAAAAA?pid=ImgDet&rs=1'/>
-    <Button gap="2" float={"right"}>Edit Profle<RiEditFill/></Button>
-  </CardHeader>
-  <CardBody>
-  <Box mt="-10">
-    <Heading size='sm'>Malik fajar</Heading>
-    <Text size='xs'>FullStack Dev, @DevTech</Text>
-  </Box>
-  <CardFooter
-    justify='space-between'
-    flexWrap='wrap'
-    mt='-2'
-    bottom='0'
-    sx={{
-      '& > button': {
-        minW: '50px',
-      },
-    }}
-  >
-    <Button flex='1' variant='ghost' leftIcon={<BiLike />}>
-      10
-    </Button>
-    <Button flex='1' variant='ghost' leftIcon={<BiChat />}>
-      2
-    </Button>
-    <Button flex='1' variant='ghost' leftIcon={<BiShare />}>
-      1
-    </Button>
-  </CardFooter>
-  </CardBody>
-</Card>
-</Box>
+  const dispatch = useDispatch();
+  const StateFollows = useSelector(
+    (state: RootState) => state.follow.StateFollows
+  );
+  const follows = useSelector((state: RootState) => state.follow.follows);
 
-<Box p="1">
-<Card>
-  <CardBody>
-  <List spacing={3}>
-  <ListItem>
-    <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
-      <Avatar size='xs' name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />
-        <Box>
-          <Heading size='xs'>Segun Adebayo</Heading>
-          <Text fontSize='xs'>Creator, Chakra UI</Text>
-        </Box>
-        <Box>
-        <Button size='xs'>Follows</Button>
-        </Box>
-    </Flex>
-  </ListItem>
-  <ListItem>
-    <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
-      <Avatar size='xs' name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />
-        <Box>
-          <Heading size='xs'>Segun Adebayo</Heading>
-          <Text fontSize='xs'>Creator, Chakra UI</Text>
-        </Box>
-        <Box>
-        <Button size='xs'>Follows</Button>
-        </Box>
-    </Flex>
-  </ListItem>
-  <ListItem>
-    <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
-      <Avatar size='xs' name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />
-        <Box>
-          <Heading size='xs'>Segun Adebayo</Heading>
-          <Text fontSize='xs'>Creator, Chakra UI</Text>
-        </Box>
-        <Box>
-        <Button size='xs'>Follows</Button>
-        </Box>
-    </Flex>
-  </ListItem>
+  async function getFollowers() {
+    const response = await ApiData.get(`/follows?type=${StateFollows}`);
 
-</List>
-  </CardBody>
-</Card>
-</Box>
+    dispatch(GET_FOLLOWS(response.data));
+  }
 
-<Box p="1">
-<Card>
-  <CardBody>
-    <Flex alignItems='center' gap='1'>
-  <Heading size='1pxx'>Developed By</Heading>
-  <Text size='xs'>malik Fajar </Text>
-  <Divider orientation='vertical' color='black' m='1'/>
-  <SlSocialGithub/>
-  <TiSocialInstagram/>
-  <TiSocialTwitter/>
-  <TiSocialLinkedin/>
-    </Flex>
-  </CardBody>
- 
-</Card>
+  useEffect(() => {
+    getFollowers();
+    dispatch(SET_FOLLOWS_STATE("recommended"));
+  }, [StateFollows]);
 
-
-</Box>
+  console.log(follows);
+  console.log("auth", auth);
+  return (
+    <Container>
+      <Box position="fixed" borderLeft={"1px solid grey"}>
+        <Box p="1">
+          <Card>
+            <CardHeader>
+              <Box w="full" h="28" position="relative" border={"1px solid grey"}   borderRadius="2xl">
+                <Image
+                  src={auth.picture ? auth.picture : "placeholder.png"}
+                  alt="Cover Image"
+                  objectFit="cover"
+                  w="full"
+                  h="full"
+                  borderRadius="2xl"
+                />
+              </Box>
+              <Avatar
+                size="lg"
+                mt="-7"
+                ml="5"
+                src={
+                  auth.profile_articel
+                    ? auth.profile_articel
+                    : "placeholder.png"
+                }
+              />
+              <Link to={`/profile/update/${auth.id}}`}>
+                <Button gap="2" float={"right"} mt={"4"}>
+                  Edit Profle
+                  <RiEditFill />
+                </Button>
+              </Link>
+            </CardHeader>
+            <CardBody>
+              <Box mt="-10">
+                <Heading size="sm">{auth.fullname}</Heading>
+                <Text size="xs">FullStack Dev,{auth.nickname}</Text>
+              </Box>
+              <CardFooter
+                justify="space-between"
+                flexWrap="wrap"
+                mt="-2"
+                bottom="0"
+                sx={{
+                  "& > button": {
+                    minW: "50px",
+                  },
+                }}
+              >
+                <Box textAlign={"center"}>
+                  <Text>followers</Text>
+                  <Text>10</Text>
+                </Box>
+                <Box textAlign={"center"}>
+                  <Text>followings</Text>
+                  <Text>10</Text>
+                </Box>
+              </CardFooter>
+            </CardBody>
+          </Card>
         </Box>
-      </Container>
-    )
+
+        <Box p="1">
+          <Card>
+            <CardHeader>Suggested For You:</CardHeader>
+            <CardBody>
+              <List spacing={3}>
+                <ListItem>
+                  {follows?.map((follow, i) => (
+                    <Follows
+                      key={i}
+                      id={follow.id}
+                      user_id={follow.user_id}
+                      fullname={follow.fullname}
+                      nickname={follow.nickname}
+                      email={follow.email}
+                      picture={follow.picture}
+                      profile_article={follow.profile_article}
+                      is_followed={follow.is_followed}
+                    />
+                  ))}
+                </ListItem>
+              </List>
+            </CardBody>
+          </Card>
+        </Box>
+
+        <Box p="2">
+          <Card>
+            <CardBody>
+              <Flex alignItems="center" gap="1">
+                <Heading size="1pxx">Developed By</Heading>
+                <Text size="xs">malik Fajar </Text>
+                <Divider orientation="vertical" color="black" m="1" />
+                <SlSocialGithub />
+                <TiSocialInstagram />
+                <TiSocialTwitter />
+                <TiSocialLinkedin />
+              </Flex>
+            </CardBody>
+          </Card>
+        </Box>
+      </Box>
+    </Container>
+  );
 };
-export default Cards
+export default Cards;

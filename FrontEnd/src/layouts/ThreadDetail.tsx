@@ -32,9 +32,11 @@ import {ReplyPost} from "../features/fiture/replyPost"
 import { TimeFormat } from "../features/fiture/hooks/timeConvert";
 
 
+
 export function ThreadDetail() {
-  const {postReplies, element, replies,steps, activeStep , isOpen, onOpen, onClose ,initialRef,finalRef} = ReplyPost();
+  const {handleLikes,postReplies, element, replies,steps, activeStep , isOpen, onOpen, onClose ,initialRef,finalRef} = ReplyPost();
   const {formatTimeAgo}= TimeFormat()
+
 
   return (
     <Box>
@@ -67,6 +69,14 @@ export function ThreadDetail() {
               <Box p="4">
                 <Text>{element?.users.fullname}</Text>
               </Box>
+              {/* {follows?.map((follow,i) => (
+
+          <Button onClick={()=>handleFollows(follow.id,follow.user_id,follow.is_followed)} >
+            {follow.is_followed?"unfollow":"follow"}
+
+          </Button>
+
+))} */}
               <Flex>
                 <Box p="4">
                   <Text>{element?.users.nickname}</Text>
@@ -117,7 +127,21 @@ export function ThreadDetail() {
                         </Button>
                       </Box>
                       <Box>
-                        <BsHeartFill>{element?.replies}</BsHeartFill>
+                      <Button
+                    flex="1"
+                    variant="ghost"
+                    leftIcon={
+                      element?.isLike? (
+                        <BsHeartFill color="red" />
+                      ) : (
+                        <BsHeartFill color="white" />
+                      )
+                    }
+                    onClick={() => handleLikes(element?.id, element?.isLike)}
+                  >
+                    <Text>{element?.likes_count}</Text>
+                  </Button>
+                        {/* <BsHeartFill>{element?.replies}</BsHeartFill> */}
                       </Box>
                     </Flex>
                   </Box>

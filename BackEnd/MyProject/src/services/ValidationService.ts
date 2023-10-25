@@ -3,7 +3,6 @@ import { Users } from "../entities/Users";
 import { Request, Response } from "express";
 import { Repository } from "typeorm";
 import * as bcrypt from 'bcrypt'
-import { schema } from "../utils/joiValidate";
 import * as jwt from "jsonwebtoken"
 import { secretKey } from "../middleware/authenticate";
 
@@ -21,7 +20,7 @@ class ValidationService {
                 password:hash
             });
             
-          const  createValid = this.validationRepository.save(validation);
+          await  this.validationRepository.save(validation);
                return res.status(200).json("data berhasil di tambahkan");
         } catch (error) {
             return res.status(500).json("terjadi kesalahan");
@@ -41,7 +40,7 @@ class ValidationService {
          where:{
             email:data.email
          },
-         select:["id","nickname","fullname","email","password"]
+         select:["id","nickname","fullname","email","password","picture","profile_articel"]
         })
         if (!validation) {
             return res.status(401).json("User not found");
@@ -56,6 +55,9 @@ class ValidationService {
             fullname:validation.fullname,
             nickname:validation.nickname,
             email:validation.email,
+            picture:validation.picture,
+            profile_articel:validation.profile_articel
+            
 
         })
         const token = jwt.sign({user}, secretKey, { expiresIn: '1h' });
@@ -72,10 +74,12 @@ class ValidationService {
 
      async check(req:Request,res:Response){
         try {
-            const loginSession = res.locals.loginSession
+            const loginSession = res.locals.loginSession;
+            console.log(loginSession)
+
             const user = await this.validationRepository.findOne ({
                 where:{
-                    id:loginSession.id
+                    id:loginSession.user.id
                 },
                 select:["id","nickname","fullname","email","password"]
             })
