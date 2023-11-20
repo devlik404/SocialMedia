@@ -1,7 +1,13 @@
-.env
+
 .idea/
 .vscode/
 node_modules/
 build/
 tmp/
 temp/
+
+
+# Ignore .env file
+.env
+
+utils/data-source.ts
